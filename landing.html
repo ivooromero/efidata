@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Consultora Oracle APEX — Apps, IA e Integraciones</title>
+  <meta name="description" content="Desarrollo y consultoría Oracle APEX: apps a medida, dashboards, IA, ORDS, seguridad, migraciones, OCI y más." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <!-- Lenis (smooth scroll) -->
+  <script src="https://unpkg.com/@studio-freight/lenis@1.0.42/bundled/lenis.min.js"></script>
+  <style>
+    /* =========================================================
+       Reset mínimo y tokens – todo prefijado lx- para evitar choques con APEX
+       ========================================================= */
+    :root{
+      --lx-bg:#0a0a0a; --lx-surface:#121212; --lx-surface-2:#1a1a1a;
+      --lx-text:#eaeaea; --lx-text-2:#b3b3b3; --lx-brand:#4f46e5; --lx-brand-2:#a5b4fc;
+      --lx-border:rgba(255,255,255,.12); --lx-round:18px; --lx-shadow:0 10px 30px rgba(0,0,0,.35);
+      --lx-max:1150px; --lx-pad:24px; --lx-gap:20px; --lx-head:70px;
+    }
+    *,*::before,*::after{box-sizing:border-box}
+    html,body{height:100%}
+    body{margin:0;font-family:Inter,system-ui,Segoe UI,Roboto,Arial,sans-serif;background:var(--lx-bg);color:var(--lx-text);}
+    img{max-width:100%;display:block}
+    a{color:inherit;text-decoration:none}
+
+    /* Utiles internos */
+    .lx-wrap{max-width:var(--lx-max);margin:0 auto;padding:0 var(--lx-pad);} /* reemplazo de .container */
+    .lx-card{background:var(--lx-surface);border:1px solid var(--lx-border);border-radius:var(--lx-round);box-shadow:var(--lx-shadow)}
+    .lx-border{border:1px solid var(--lx-border)}
+    .lx-glass{backdrop-filter:saturate(180%) blur(10px); background:rgba(255,255,255,.06)}
+    .lx-btn{display:inline-block;padding:12px 18px;border-radius:14px;font-weight:600;line-height:1}
+    .lx-btn--primary{background:#fff;color:#101010}
+    .lx-btn--ghost{border:1px solid var(--lx-border)}
+    .lx-grid{display:grid;gap:var(--lx-gap)}
+    .lx-grid--2{grid-template-columns:repeat(2,minmax(0,1fr))}
+    .lx-grid--3{grid-template-columns:repeat(3,minmax(0,1fr))}
+    @media (max-width:900px){.lx-grid--2,.lx-grid--3{grid-template-columns:1fr}}
+
+    /* Header */
+    .lx-header{position:sticky;top:0;z-index:40;border-bottom:1px solid var(--lx-border);background:rgba(10,10,10,.75);backdrop-filter:blur(8px)}
+    .lx-nav{display:flex;align-items:center;justify-content:space-between;padding:14px 0}
+    .lx-brand{display:flex;align-items:center;gap:10px}
+    .lx-logo{width:34px;height:34px;border-radius:12px;background:var(--lx-brand)}
+    .lx-menu{display:flex;align-items:center;gap:18px;color:var(--lx-text-2);font-size:14px}
+    .lx-menu a:hover{color:#fff}
+
+    /* Hero */
+    .lx-hero{position:relative;overflow:hidden}
+    .lx-hero__halo{position:absolute;inset:0}
+    .lx-hero__halo-inner{position:absolute;left:50%;top:-140px;transform:translateX(-50%);width:1200px;height:1200px;border-radius:50%;background:rgba(79,70,229,.2);filter:blur(120px)}
+    .lx-hero__content{padding:70px 0 90px}
+    .lx-title{font-size:44px;font-weight:900;line-height:1.05}
+    @media (min-width:900px){.lx-title{font-size:64px}}
+    .lx-sub{margin-top:12px;color:var(--lx-text-2);font-size:18px}
+    .lx-cta{margin-top:22px;display:flex;gap:12px;flex-wrap:wrap}
+
+    .lx-kpis{margin-top:22px}
+    .lx-kpis .lx-card{text-align:center;padding:14px}
+    .lx-kpi-n{font-size:28px;font-weight:800}
+    .lx-kpi-l{font-size:12px;color:var(--lx-text-2)}
+
+    /* Secciones */
+    section{padding:80px 0;border-top:1px solid var(--lx-border)}
+    h2.lx-h2{font-size:36px;font-weight:800;margin:0}
+    .lx-lead{margin-top:6px;color:var(--lx-text-2)}
+
+    /* Tarjetas servicios */
+    .lx-service{padding:22px}
+    .lx-service h3{margin:0;font-size:20px;font-weight:700}
+    .lx-service ul{margin:10px 0 0 14px;color:var(--lx-text-2)}
+    .lx-service li{margin:6px 0}
+
+    /* Planes */
+    .lx-plan{padding:22px}
+    .lx-plan__price{font-size:34px;font-weight:900;margin:8px 0}
+    .lx-plan .lx-btn{margin-top:12px;background:var(--lx-brand);color:#fff}
+    .lx-plan--hot{outline:2px solid var(--lx-brand)}
+
+    /* Contacto */
+    .lx-form{display:grid;gap:14px}
+    .lx-form__row{display:grid;gap:14px;grid-template-columns:1fr 1fr}
+    @media (max-width:900px){.lx-form__row{grid-template-columns:1fr}}
+    .lx-input,.lx-textarea{width:100%;padding:12px 14px;border-radius:12px;border:1px solid var(--lx-border);background:#0e0e0e;color:#fff}
+    .lx-textarea{min-height:140px;resize:vertical}
+
+    /* Footer */
+    .lx-footer{padding:26px 0;border-top:1px solid var(--lx-border);color:var(--lx-text-2);font-size:14px}
+
+    /* Animaciones y efectos */
+    .lx-progress{position:fixed;top:0;left:0;height:3px;width:0;background:linear-gradient(90deg,var(--lx-brand),var(--lx-brand-2));z-index:50}
+    [data-ani]{opacity:0;transform:translateY(22px) scale(.985);transition:opacity .7s ease,transform .75s cubic-bezier(.2,.8,.2,1)}
+    [data-ani].is-in{opacity:1;transform:none}
+    .lx-hover{transition:transform .25s ease}
+    .lx-hover:hover{transform:translateY(-3px)}
+  </style>
+</head>
+<body>
+  <div class="lx-progress" id="lxProgress"></div>
+
+  <!-- HEADER -->
+  <header class="lx-header" data-ani>
+    <div class="lx-wrap lx-nav">
+      <a href="#home" class="lx-brand">
+        <span class="lx-logo" aria-hidden="true"></span>
+        <span class="lx-strong">EFI Data</span>
+      </a>
+      <nav class="lx-menu" aria-label="principal">
+        <a href="#servicios">Servicios</a>
+        <a href="#soluciones">Soluciones</a>
+        <a href="#proceso">Proceso</a>
+        <a href="#precios">Planes</a>
+        <a href="#contacto">Contacto</a>
+        <a href="https://wa.me/5493510000000" target="_blank" class="lx-btn lx-btn--ghost lx-hover">Hablemos</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section id="home" class="lx-hero" aria-label="Héroe">
+    <div class="lx-hero__halo" aria-hidden="true"><div class="lx-hero__halo-inner" id="lxHalo"></div></div>
+    <div class="lx-wrap lx-hero__content lx-grid lx-grid--2">
+      <div data-ani>
+        <h1 class="lx-title">Aplicaciones Oracle <span style="color:var(--lx-brand-2)">APEX</span> de alto impacto</h1>
+        <p class="lx-sub">Construimos y optimizamos soluciones en Oracle APEX: desde MVPs hasta plataformas enterprise con IA, ORDS y Autonomous Database. Rápidas, seguras y listas para escalar.</p>
+        <div class="lx-cta" data-ani>
+          <a href="#contacto" class="lx-btn lx-btn--primary lx-hover">Solicitar propuesta</a>
+          <a href="#servicios" class="lx-btn lx-btn--ghost lx-hover">Ver todo lo que hacemos</a>
+        </div>
+        <div class="lx-kpis lx-grid lx-grid--3">
+          <div class="lx-card lx-hover" data-ani>
+            <div class="lx-kpi-n">+120</div>
+            <div class="lx-kpi-l">páginas APEX entregadas</div>
+          </div>
+          <div class="lx-card lx-hover" data-ani>
+            <div class="lx-kpi-n">99.9%</div>
+            <div class="lx-kpi-l">uptime en producción</div>
+          </div>
+          <div class="lx-card lx-hover" data-ani>
+            <div class="lx-kpi-n">x10</div>
+            <div class="lx-kpi-l">aceleración de reporting</div>
+          </div>
+        </div>
+      </div>
+      <div data-ani>
+        <div class="lx-card lx-glass" style="padding:22px">
+          <div class="lx-grid lx-grid--2" style="font-size:14px">
+            <div class="lx-card" style="padding:16px" data-ani>
+              <h3 style="margin:0 0 6px 0;font-weight:700">Dashboards & KPI</h3>
+              <p style="color:var(--lx-text-2);margin:0">Interactive Reports/Grids, Actions dinámicas, Charts, filtros, exportaciones.</p>
+            </div>
+            <div class="lx-card" style="padding:16px" data-ani>
+              <h3 style="margin:0 0 6px 0;font-weight:700">Integraciones</h3>
+              <p style="color:var(--lx-text-2);margin:0">ORDS/REST, Web Services, OAuth2, Webhooks, AOP/BI Publisher.</p>
+            </div>
+            <div class="lx-card" style="padding:16px" data-ani>
+              <h3 style="margin:0 0 6px 0;font-weight:700">IA aplicada</h3>
+              <p style="color:var(--lx-text-2);margin:0">Gemini/OpenAI, búsqueda semántica, NL→SQL, asistentes in‑app.</p>
+            </div>
+            <div class="lx-card" style="padding:16px" data-ani>
+              <h3 style="margin:0 0 6px 0;font-weight:700">Seguridad</h3>
+              <p style="color:var(--lx-text-2);margin:0">Esquemas de auth, ACL, RLS/VPD, auditoría, hardening y SSO.</p>
+            </div>
+          </div>
+        </div>
+        <p style="color:var(--lx-text-2);font-size:12px;margin-top:8px">Tecnologías: Oracle DB, APEX 23/24, ORDS, OCI, JS, PL/SQL.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICIOS -->
+  <section id="servicios">
+    <div class="lx-wrap">
+      <div style="max-width:720px">
+        <h2 class="lx-h2">Servicios end‑to‑end en Oracle APEX</h2>
+        <p class="lx-lead">Ponele turbo a tus procesos con un equipo especializado.</p>
+      </div>
+      <div class="lx-grid lx-grid--3" style="margin-top:24px">
+        <div class="lx-card lx-service lx-hover" data-ani>
+          <h3>Desarrollo de Apps APEX</h3>
+          <ul>
+            <li>CRUDs avanzados con Interactive Grid/Report</li>
+            <li>Dashboards con APEX Charts & JS Charts</li>
+            <li>Actions dinámicas, procesos y validaciones</li>
+            <li>Universal Theme, CSS responsive, accesibilidad</li>
+            <li>Traducciones (NLS) e internacionalización</li>
+          </ul>
+        </div>
+        <div class="lx-card lx-service lx-hover" data-ani>
+          <h3>Modelado & PL/SQL</h3>
+          <ul>
+            <li>Diseño de esquemas, constraints y relaciones</li>
+            <li>Funciones, paquetes, vistas materializadas</li>
+            <li>Optimización SQL, índices, particionado</li>
+            <li>ETL con SQL/PLSQL y Scheduler</li>
+            <li>Auditoría y logging</li>
+          </ul>
+        </div>
+        <div class="lx-card lx-service lx-hover" data-ani>
+          <h3>Integraciones & ORDS</h3>
+          <ul>
+            <li>Exposición/consumo de APIs REST (ORDS)</li>
+            <li>OAuth2, JWT, LDAP/SSO, Active Directory</li>
+            <li>Servicios externos: Google, Microsoft, WhatsApp</li>
+            <li>APEX Office Print, BI Publisher, Jasper</li>
+            <li>Archivos: Excel/CSV/PDF con Web Source Modules</li>
+          </ul>
+        </div>
+        <div class="lx-card lx-service lx-hover" data-ani>
+          <h3>Seguridad & Gobernanza</h3>
+          <ul>
+            <li>Esquemas de autenticación y autorización</li>
+            <li>ACL, RLS/VPD, enmascaramiento de datos</li>
+            <li>Gestión de sesiones, protección CSRF/XSS</li>
+            <li>Backups, versionado y CI/CD</li>
+            <li>Cumplimiento y mejores prácticas</li>
+          </ul>
+        </div>
+        <div class="lx-card lx-service lx-hover" data-ani>
+          <h3>IA en APEX</h3>
+          <ul>
+            <li>NL → SQL: usuarios piden datos en lenguaje natural</li>
+            <li>Asistentes dentro de la app (chat contextual)</li>
+            <li>Clasificación y extracción en documentos</li>
+            <li>Visión: lectura de imágenes y códigos</li>
+            <li>Resúmenes, redacción y análisis predictivo</li>
+          </ul>
+        </div>
+        <div class="lx-card lx-service lx-hover" data-ani>
+          <h3>Migración & Cloud</h3>
+          <ul>
+            <li>Migración Oracle Forms/Excel → APEX</li>
+            <li>APEX en OCI, ATP/ADB, Exadata</li>
+            <li>Configuración ORDS, dominios, SSL</li>
+            <li>Monitoreo, observabilidad y tuning</li>
+            <li>Alta disponibilidad y escalabilidad</li>
+          </ul>
+        </div>
+        <div class="lx-card lx-service lx-hover" data-ani>
+          <h3>BI & Reporting</h3>
+          <ul>
+            <li>KPIs, OKRs y paneles ejecutivos</li>
+            <li>Drill‑down, pivot, filtros avanzados</li>
+            <li>Exportación a Excel/PDF, plantillas</li>
+            <li>Notificaciones y jobs programados</li>
+            <li>Geoanálisis con Oracle Spatial/Maps</li>
+          </ul>
+        </div>
+        <div class="lx-card lx-service lx-hover" data-ani>
+          <h3>UX/UI & Performance</h3>
+          <ul>
+            <li>Universal Theme avanzado y theming</li>
+            <li>Componentes JS, accesibilidad (WCAG)</li>
+            <li>Page Designer: performance y caching</li>
+            <li>APEX Advisor y Lazy Loading</li>
+            <li>Testing, QA y automatización</li>
+          </ul>
+        </div>
+        <div class="lx-card lx-service lx-hover" data-ani>
+          <h3>Soporte & Capacitación</h3>
+          <ul>
+            <li>Soporte evolutivo y correctivo</li>
+            <li>Capacitaciones in‑company</li>
+            <li>Documentación y handover</li>
+            <li>PM, discovery y UX research</li>
+            <li>SLAs adaptados a tu negocio</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SOLUCIONES / CASOS -->
+  <section id="soluciones">
+    <div class="lx-wrap">
+      <div style="max-width:720px">
+        <h2 class="lx-h2">Soluciones típicas que entregamos</h2>
+        <p class="lx-lead">Listas para usar y extensibles.</p>
+      </div>
+      <div class="lx-grid lx-grid--3" style="margin-top:24px">
+        <div class="lx-card lx-service lx-hover" data-ani>
+          <h3>Finanzas & Contabilidad</h3>
+          <p class="lx-lead">Cuentas por cobrar/pagar, cash‑flow, conciliaciones, cierres, reportería con IA.</p>
+        </div>
+        <div class="lx-card lx-service lx-hover" data-ani>
+          <h3>Ventas & CRM</h3>
+          <p class="lx-lead">Leads, pipeline, forecasting, cotizaciones, contratos, firmas.</p>
+        </div>
+        <div class="lx-card lx-service lx-hover" data-ani>
+          <h3>Operaciones & Logística</h3>
+          <p class="lx-lead">Inventarios, pedidos, picking, rutas, WMS, integración con ERPs.</p>
+        </div>
+        <div class="lx-card lx-service lx-hover" data-ani>
+          <h3>RRHH & Nómina</h3>
+          <p class="lx-lead">Legajos, ausentismo, evaluaciones, capacitaciones, portales de empleado.</p>
+        </div>
+        <div class="lx-card lx-service lx-hover" data-ani>
+          <h3>Compras & Proveedores</h3>
+          <p class="lx-lead">Solicitudes, OC, recepciones, catálogos, homologaciones, portales.</p>
+        </div>
+        <div class="lx-card lx-service lx-hover" data-ani>
+          <h3>Calidad & Compliance</h3>
+          <p class="lx-lead">Auditorías, no conformidades, trazabilidad, documentación y firmas.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESO -->
+  <section id="proceso">
+    <div class="lx-wrap">
+      <div style="max-width:720px">
+        <h2 class="lx-h2">Nuestro proceso</h2>
+        <p class="lx-lead">Iteramos rápido y con foco en valor.</p>
+      </div>
+      <ol class="lx-grid lx-grid--2" style="margin-top:24px">
+        <li class="lx-card lx-service" data-ani>
+          <p class="lx-lead" style="margin:0 0 6px 0">Paso 1</p>
+          <h3>Discovery</h3>
+          <p class="lx-lead">Relevamiento, objetivos, quick wins y alcance.</p>
+        </li>
+        <li class="lx-card lx-service" data-ani>
+          <p class="lx-lead" style="margin:0 0 6px 0">Paso 2</p>
+          <h3>Diseño</h3>
+          <p class="lx-lead">Modelo de datos, UX, seguridad y roadmap.</p>
+        </li>
+        <li class="lx-card lx-service" data-ani>
+          <p class="lx-lead" style="margin:0 0 6px 0">Paso 3</p>
+          <h3>Construcción</h3>
+          <p class="lx-lead">APEX, PL/SQL, integraciones y automatizaciones.</p>
+        </li>
+        <li class="lx-card lx-service" data-ani>
+          <p class="lx-lead" style="margin:0 0 6px 0">Paso 4</p>
+          <h3>Entrega & Soporte</h3>
+          <p class="lx-lead">Despliegue, handover, capacitaciones y SLAs.</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- PLANES -->
+  <section id="precios">
+    <div class="lx-wrap">
+      <div style="max-width:720px">
+        <h2 class="lx-h2">Planes simples</h2>
+        <p class="lx-lead">Elegí el que mejor te calce. Precios de referencia — pedinos una propuesta.</p>
+      </div>
+      <div class="lx-grid lx-grid--3" style="margin-top:24px">
+        <div class="lx-card lx-plan lx-hover" data-ani>
+          <h3>Hora Consultoría</h3>
+          <ul class="lx-lead" style="margin-left:16px">
+            <li>Soporte APEX/PLSQL/ORDS</li>
+            <li>Revisión de performance</li>
+            <li>Pequeños cambios y fixes</li>
+          </ul>
+          <a href="#contacto" class="lx-btn lx-hover" style="background:var(--lx-brand);color:#fff">Consultar</a>
+        </div>
+        <div class="lx-card lx-plan lx-plan--hot lx-hover" data-ani>
+          <h3>Sprint Semanal</h3>
+          <ul class="lx-lead" style="margin-left:16px">
+            <li>Equipo dedicado 1 semana</li>
+            <li>Entregables claros y demo</li>
+            <li>Ideal MVPs y features</li>
+          </ul>
+          <a href="#contacto" class="lx-btn lx-hover" style="background:var(--lx-brand);color:#fff">Reservar</a>
+        </div>
+        <div class="lx-card lx-plan lx-hover" data-ani>
+          <h3>Soporte Mensual</h3>
+          <ul class="lx-lead" style="margin-left:16px">
+            <li>Horas de evolución y fixes</li>
+            <li>SLAs y monitoreo</li>
+            <li>Capacitaciones incluidas</li>
+          </ul>
+          <a href="#contacto" class="lx-btn lx-hover" style="background:var(--lx-brand);color:#fff">Quiero este</a>
+        </div>
+      </div>
+      <p class="lx-lead" style="font-size:12px;margin-top:8px">* Valores orientativos. Podemos cotizar en ARS y modalidad híbrida.</p>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section>
+    <div class="lx-wrap">
+      <div style="max-width:720px">
+        <h2 class="lx-h2">Preguntas frecuentes</h2>
+      </div>
+      <div class="lx-grid lx-grid--2" style="margin-top:24px">
+        <div class="lx-card lx-service" data-ani>
+          <h3>¿Trabajan on‑premise u OCI?</h3>
+          <p class="lx-lead">Ambos. Desplegamos APEX en OCI (ATP/ADB, ORDS) o sobre tu infraestructura.</p>
+        </div>
+        <div class="lx-card lx-service" data-ani>
+          <h3>¿Pueden integrar IA a mi app?</h3>
+          <p class="lx-lead">Sí: consultas en lenguaje natural, asistentes, visión, workflows y más.</p>
+        </div>
+        <div class="lx-card lx-service" data-ani>
+          <h3>¿Migran desde Excel/Forms?</h3>
+          <p class="lx-lead">Convertimos procesos a APEX con gobierno de datos y seguridad.</p>
+        </div>
+        <div class="lx-card lx-service" data-ani>
+          <h3>¿Cómo es el handover?</h3>
+          <p class="lx-lead">Documentación, capacitación y traspaso ordenado al equipo interno.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACTO -->
+  <section id="contacto">
+    <div class="lx-wrap">
+      <div style="max-width:720px">
+        <h2 class="lx-h2">Contáctanos</h2>
+        <p class="lx-lead">Contanos brevemente tu necesidad y te respondemos en el día hábil.</p>
+      </div>
+      <form class="lx-card" style="margin-top:20px;padding:20px" action="mailto:contacto@tu-dominio.com" method="post" enctype="text/plain">
+        <div class="lx-form__row">
+          <div>
+            <label class="lx-lead" style="font-size:12px">Nombre</label>
+            <input required name="nombre" class="lx-input" placeholder="Tu nombre" />
+          </div>
+          <div>
+            <label class="lx-lead" style="font-size:12px">Email</label>
+            <input required name="email" type="email" class="lx-input" placeholder="tu@email.com" />
+          </div>
+        </div>
+        <div class="lx-form" style="margin-top:14px">
+          <label class="lx-lead" style="font-size:12px">Mensaje</label>
+          <textarea required name="mensaje" class="lx-textarea" placeholder="¿Qué querés construir en APEX?"></textarea>
+        </div>
+        <div style="margin-top:14px;display:flex;gap:12px;align-items:center;flex-wrap:wrap">
+          <button class="lx-btn lx-hover" style="background:var(--lx-brand);color:#fff">Enviar</button>
+          <a class="lx-btn lx-hover lx-btn--ghost" href="https://wa.me/5493510000000" target="_blank">WhatsApp</a>
+        </div>
+        <p class="lx-lead" style="font-size:12px">Al enviar aceptás nuestra política de privacidad.</p>
+      </form>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="lx-footer">
+    <div class="lx-wrap" style="display:flex;gap:10px;align-items:center;justify-content:space-between;flex-wrap:wrap">
+      <p>© <span id="lxYear"></span> Consultora Oracle APEX — Córdoba, AR</p>
+      <div style="display:flex;gap:14px">
+        <a href="#servicios">Servicios</a>
+        <a href="#precios">Planes</a>
+        <a href="#contacto">Contacto</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Año footer
+    document.getElementById('lxYear').textContent = new Date().getFullYear();
+
+    // Lenis
+    let lenis;
+    try { lenis = new Lenis({ duration:1.05, smoothWheel:true, easing:(t)=>Math.min(1,1.001-Math.pow(2,-10*t)) }); } catch {}
+    function raf(t){ if(lenis) lenis.raf(t); requestAnimationFrame(raf); } requestAnimationFrame(raf);
+
+    // Anclas con offset
+    document.querySelectorAll('a[href^="#"]').forEach(a=>{
+      a.addEventListener('click',e=>{
+        const target = document.querySelector(a.getAttribute('href')); if(!target) return;
+        e.preventDefault(); const y = target.getBoundingClientRect().top + window.pageYOffset - (parseInt(getComputedStyle(document.documentElement).getPropertyValue('--lx-head'))||70);
+        if(lenis){ lenis.scrollTo(y); } else { window.scrollTo({top:y,behavior:'smooth'}); }
+      });
+    });
+
+    // Progreso de scroll
+    const prog=document.getElementById('lxProgress');
+    const onScroll=()=>{ const sc=window.scrollY; const m=document.documentElement.scrollHeight - innerHeight; prog.style.width = (m>0? (sc/m)*100:0) + '%'; };
+    document.addEventListener('scroll', onScroll, {passive:true});
+
+    // Reveal al entrar en viewport
+    const io=new IntersectionObserver((ents)=>{ents.forEach(ent=>{ if(ent.isIntersecting){ ent.target.classList.add('is-in'); io.unobserve(ent.target);} })},{threshold:.12, rootMargin:'0px 0px -10% 0px'});
+    document.querySelectorAll('[data-ani]').forEach(el=>io.observe(el));
+
+    // Parallax sutil del halo
+    const halo=document.getElementById('lxHalo');
+    if(halo){ (lenis? lenis: {on:(ev,cb)=>document.addEventListener('scroll',()=>cb({scroll:window.scrollY}))}).on('scroll',({scroll})=>{ halo.style.transform=`translate(-50%, ${-140 + (scroll*-0.04)}px)`; }); }
+  </script>
+</body>
+</html>
