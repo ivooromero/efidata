@@ -48,7 +48,7 @@
     .lx-menu a:hover{color:#fff}
 
     /* Hero */
-    .lx-hero{position:relative;overflow:hidden}
+    .lx-hero{position:relative;overflow:hidden;padding: 25px;}
     .lx-hero__halo{position:absolute;inset:0}
     .lx-hero__halo-inner{position:absolute;left:50%;top:-140px;transform:translateX(-50%);width:1200px;height:1200px;border-radius:50%;background:rgba(79,70,229,.2);filter:blur(120px)}
     .lx-hero__content{padding:70px 0 90px}
@@ -95,30 +95,73 @@
     [data-ani].is-in{opacity:1;transform:none}
     .lx-hover{transition:transform .25s ease}
     .lx-hover:hover{transform:translateY(-3px)}
+    /* ====== Menú responsive ====== */
+.lx-burger{display:none;align-items:center;gap:8px;border:1px solid var(--lx-border);
+  background:#0f0f0f;border-radius:12px;padding:10px 12px;cursor:pointer}
+.lx-burger i{width:18px;height:2px;background:#eaeaea;display:block;position:relative}
+.lx-burger i::before,.lx-burger i::after{content:"";position:absolute;left:0;width:18px;height:2px;background:#eaeaea}
+.lx-burger i::before{top:-6px}.lx-burger i::after{top:6px}
+
+/* panel móvil */
+.lx-menu-mobile{position:fixed;inset:70px 0 0 0; /* debajo del header */
+  background:rgba(10,10,10,.98);backdrop-filter:blur(8px);border-top:1px solid var(--lx-border);
+  transform:translateY(-10px);opacity:0;pointer-events:none;transition:opacity .25s ease,transform .25s ease;z-index:45}
+.lx-menu-mobile.is-open{transform:translateY(0);opacity:1;pointer-events:auto}
+.lx-menu-mobile__inner{padding:16px var(--lx-pad);display:flex;flex-direction:column;gap:8px}
+.lx-menu-mobile a{padding:12px;border-radius:12px;color:var(--lx-text-2)}
+.lx-menu-mobile a:hover{background:var(--lx-surface-2);color:#fff}
+
+/* esconder menú de escritorio en móviles y mostrar burger */
+@media (max-width:900px){
+  .lx-menu{display:none}
+  .lx-burger{display:flex}
+}
+.centrarHome{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;margin-top:20px}
   </style>
 </head>
 <body>
   <div class="lx-progress" id="lxProgress"></div>
 
   <!-- HEADER -->
-  <header class="lx-header" data-ani>
-    <div class="lx-wrap lx-nav">
-      <a href="#home" class="lx-brand">
-        <span class="lx-logo" aria-hidden="true">
-          <img src="Imagenes/LogoEFIDATA.png" alt="">
-        </span>
-        <span class="lx-strong">EFI Data</span>
-      </a>
-      <nav class="lx-menu" aria-label="principal">
-        <a href="#servicios">Servicios</a>
-        <a href="#soluciones">Soluciones</a>
-        <a href="#proceso">Proceso</a>
-        <a href="#precios">Planes</a>
-        <a href="#contacto">Contacto</a>
-        <a href="https://wa.me/5493513156345" target="_blank" class="lx-btn lx-btn--ghost lx-hover">Hablemos</a>
-      </nav>
+<header class="lx-header" data-ani>
+  <div class="lx-wrap lx-nav">
+    <a href="#home" class="lx-brand">
+      <span class="lx-logo" aria-hidden="true">
+        <img src="Imagenes/LogoEFIDATA.png" alt="">
+      </span>
+      <span class="lx-strong">EFI Data</span>
+    </a>
+
+    <!-- Menú de escritorio (igual que antes) -->
+    <nav class="lx-menu" aria-label="principal">
+      <a href="#servicios">Servicios</a>
+      <a href="#soluciones">Soluciones</a>
+      <a href="#proceso">Proceso</a>
+      <a href="#precios">Planes</a>
+      <a href="#contacto">Contacto</a>
+      <a href="https://wa.me/5493513156345" target="_blank" class="lx-btn lx-btn--ghost lx-hover">Hablemos</a>
+    </nav>
+
+    <!-- Botón burger (solo mobile) -->
+    <button class="lx-burger" id="lxBurger" aria-label="Abrir menú" aria-expanded="false" aria-controls="lxMenuMobile">
+      <i aria-hidden="true"></i>
+      <span style="font-weight:600">Menú</span>
+    </button>
+  </div>
+
+  <!-- Panel de menú móvil -->
+  <nav id="lxMenuMobile" class="lx-menu-mobile" aria-label="principal móvil">
+    <div class="lx-menu-mobile__inner">
+      <a href="#servicios">Servicios</a>
+      <a href="#soluciones">Soluciones</a>
+      <a href="#proceso">Proceso</a>
+      <a href="#precios">Planes</a>
+      <a href="#contacto">Contacto</a>
+      <a href="https://wa.me/5493513156345" target="_blank" class="lx-btn lx-hover" style="background:var(--lx-brand);color:#fff">Hablemos por WhatsApp</a>
     </div>
-  </header>
+  </nav>
+</header>
+
 
   <!-- HERO -->
   <section id="home" class="lx-hero" aria-label="Héroe">
@@ -146,7 +189,7 @@
           </div>
         </div>
       </div>
-      <div data-ani>
+      <div data-ani class="centrarHome">
         <div class="lx-card lx-glass" style="padding:22px">
           <div class="lx-grid lx-grid--2" style="font-size:14px">
             <div class="lx-card" style="padding:16px" data-ani>
@@ -482,6 +525,30 @@
     // Parallax sutil del halo
     const halo=document.getElementById('lxHalo');
     if(halo){ (lenis? lenis: {on:(ev,cb)=>document.addEventListener('scroll',()=>cb({scroll:window.scrollY}))}).on('scroll',({scroll})=>{ halo.style.transform=`translate(-50%, ${-140 + (scroll*-0.04)}px)`; }); }
+  // ====== Toggle menú móvil ======
+const burger = document.getElementById('lxBurger');
+const menuMob = document.getElementById('lxMenuMobile');
+if(burger && menuMob){
+  const closeMenu = ()=>{ menuMob.classList.remove('is-open'); burger.setAttribute('aria-expanded','false'); };
+  const openMenu = ()=>{ menuMob.classList.add('is-open'); burger.setAttribute('aria-expanded','true'); };
+
+  burger.addEventListener('click', ()=>{
+    menuMob.classList.contains('is-open') ? closeMenu() : openMenu();
+  });
+
+  // Cerrar al navegar
+  menuMob.querySelectorAll('a[href^="#"]').forEach(a=>{
+    a.addEventListener('click', ()=> closeMenu());
+  });
+
+  // Cerrar al hacer scroll fuerte
+  document.addEventListener('scroll', ()=>{ if(menuMob.classList.contains('is-open')) closeMenu(); }, {passive:true});
+
+  // Accesibilidad: cerrar con ESC
+  document.addEventListener('keydown', (e)=>{ if(e.key==='Escape') closeMenu(); });
+}
+
+  
   </script>
 </body>
 </html>
