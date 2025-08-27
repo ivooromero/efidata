@@ -41,7 +41,7 @@
 
     /* Header */
     .lx-header{position:sticky;top:0;z-index:40;border-bottom:1px solid var(--lx-border);background:rgba(10,10,10,.75);backdrop-filter:blur(8px)}
-    .lx-nav{display:flex;align-items:center;justify-content:space-between;padding:14px 0}
+    .lx-nav{display:flex;align-items:center;justify-content:space-between;padding:14px 0; padding-left: 50px;padding-right: 50px;}
     .lx-brand{display:flex;align-items:center;gap:10px}
     .lx-logo{width:34px;height:34px;border-radius:12px;}
     .lx-menu{display:flex;align-items:center;gap:18px;color:var(--lx-text-2);font-size:14px}
@@ -107,7 +107,7 @@
   background:rgba(10,10,10,.98);backdrop-filter:blur(8px);border-top:1px solid var(--lx-border);
   transform:translateY(-10px);opacity:0;pointer-events:none;transition:opacity .25s ease,transform .25s ease;z-index:45}
 .lx-menu-mobile.is-open{transform:translateY(0);opacity:1;pointer-events:auto}
-.lx-menu-mobile__inner{padding:16px var(--lx-pad);display:flex;flex-direction:column;gap:8px}
+.lx-menu-mobile__inner{padding:16px var(--lx-pad);display:flex;flex-direction:column;gap:8px;background-color: #000000a1;}
 .lx-menu-mobile a{padding:12px;border-radius:12px;color:var(--lx-text-2)}
 .lx-menu-mobile a:hover{background:var(--lx-surface-2);color:#fff}
 
@@ -145,7 +145,6 @@
     <!-- Botón burger (solo mobile) -->
     <button class="lx-burger" id="lxBurger" aria-label="Abrir menú" aria-expanded="false" aria-controls="lxMenuMobile">
       <i aria-hidden="true"></i>
-      <span style="font-weight:600">Menú</span>
     </button>
   </div>
 
