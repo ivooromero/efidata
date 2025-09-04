@@ -1,15 +1,37 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es-AR">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>EFI Data — Oracle Apex, IA e Integraciones</title>
-  <meta name="description" content="Desarrollo y consultoría Oracle APEX: apps a medida, dashboards, IA, ORDS, seguridad, migraciones, OCI y más." />
+  <title>Consultora Oracle APEX para PYMEs | EFI Data — Desarrollo de ERP, IA e Integraciones</title>
+  <meta name="description" content="Consultora Oracle APEX en Argentina. Desarrollamos sistemas de gestión y ERP a medida: facturación, stock, reportes KPI, integraciones ORDS/REST e IA. Demo sin costo." />
+  <link rel="canonical" href="https://www.efidata.com.ar/" />
+  <meta name="robots" content="index, follow, max-image-preview:large" />
+
+  <!-- Open Graph / Twitter -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="EFI Data" />
+  <meta property="og:title" content="Consultora Oracle APEX para PYMEs | EFI Data" />
+  <meta property="og:description" content="Desarrollamos ERP y apps en Oracle APEX: facturación, stock, dashboards, integraciones ORDS y IA." />
+  <meta property="og:url" content="https://www.efidata.com.ar/" />
+  <meta property="og:image" content="https://www.efidata.com.ar/imagenes/og-cover.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Consultora Oracle APEX para PYMEs | EFI Data" />
+  <meta name="twitter:description" content="ERP y apps Oracle APEX con IA e integraciones. Demo sin costo." />
+  <meta name="twitter:image" content="https://www.efidata.com.ar/imagenes/og-cover.jpg" />
+
+  <!-- Hreflang -->
+  <link rel="alternate" href="https://www.efidata.com.ar/" hreflang="es-AR" />
+  <link rel="alternate" href="https://www.efidata.com.ar/" hreflang="x-default" />
+
+  <!-- Preconnect & Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
   <!-- Lenis (smooth scroll) -->
-  <script src="https://unpkg.com/@studio-freight/lenis@1.0.42/bundled/lenis.min.js"></script>
+  <script defer src="https://unpkg.com/@studio-freight/lenis@1.0.42/bundled/lenis.min.js"></script>
+
   <style>
     /* =========================================================
        Reset mínimo y tokens – todo prefijado lx- para evitar choques con APEX
@@ -95,94 +117,172 @@
     [data-ani].is-in{opacity:1;transform:none}
     .lx-hover{transition:transform .25s ease}
     .lx-hover:hover{transform:translateY(-3px)}
+
     /* ====== Menú responsive ====== */
-.lx-burger{display:none;align-items:center;gap:8px;border:1px solid var(--lx-border);
-  background:#0f0f0f;border-radius:12px;padding:10px 12px;cursor:pointer}
-.lx-burger i{width:18px;height:2px;background:#eaeaea;display:block;position:relative}
-.lx-burger i::before,.lx-burger i::after{content:"";position:absolute;left:0;width:18px;height:2px;background:#eaeaea}
-.lx-burger i::before{top:-6px}.lx-burger i::after{top:6px}
+    .lx-burger{display:none;align-items:center;gap:8px;border:1px solid var(--lx-border);
+      background:#0f0f0f;border-radius:12px;padding:10px 12px;cursor:pointer}
+    .lx-burger i{width:18px;height:2px;background:#eaeaea;display:block;position:relative}
+    .lx-burger i::before,.lx-burger i::after{content:"";position:absolute;left:0;width:18px;height:2px;background:#eaeaea}
+    .lx-burger i::before{top:-6px}.lx-burger i::after{top:6px}
 
-/* panel móvil */
-.lx-menu-mobile{position:fixed;inset:70px 0 0 0; /* debajo del header */
-  background:rgba(10,10,10,.98);backdrop-filter:blur(8px);border-top:1px solid var(--lx-border);
-  transform:translateY(-10px);opacity:0;pointer-events:none;transition:opacity .25s ease,transform .25s ease;z-index:45}
-.lx-menu-mobile.is-open{transform:translateY(0);opacity:1;pointer-events:auto}
-.lx-menu-mobile__inner{padding:16px var(--lx-pad);display:flex;flex-direction:column;gap:8px;background-color: #000000a1;}
-.lx-menu-mobile a{padding:12px;border-radius:12px;color:var(--lx-text-2)}
-.lx-menu-mobile a:hover{background:var(--lx-surface-2);color:#fff}
+    /* panel móvil */
+    .lx-menu-mobile{position:fixed;inset:70px 0 0 0; /* debajo del header */
+      background:rgba(10,10,10,.98);backdrop-filter:blur(8px);border-top:1px solid var(--lx-border);
+      transform:translateY(-10px);opacity:0;pointer-events:none;transition:opacity .25s ease,transform .25s ease;z-index:45}
+    .lx-menu-mobile.is-open{transform:translateY(0);opacity:1;pointer-events:auto}
+    .lx-menu-mobile__inner{padding:16px var(--lx-pad);display:flex;flex-direction:column;gap:8px;background-color: #000000a1;}
+    .lx-menu-mobile a{padding:12px;border-radius:12px;color:var(--lx-text-2)}
+    .lx-menu-mobile a:hover{background:var(--lx-surface-2);color:#fff}
 
-/* esconder menú de escritorio en móviles y mostrar burger */
-@media (max-width:900px){
-  .lx-menu{display:none}
-  .lx-burger{display:flex}
-}
-.centrarHome{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;margin-top:20px}
+    /* esconder menú de escritorio en móviles y mostrar burger */
+    @media (max-width:900px){
+      .lx-menu{display:none}
+      .lx-burger{display:flex}
+    }
+
+    .centrarHome{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;margin-top:20px}
   </style>
+
+  <!-- Schema.org JSON-LD: Organization + LocalBusiness + Services + Website -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    "name": "EFI Data",
+    "url": "https://www.efidata.com.ar/",
+    "logo": "https://www.efidata.com.ar/imagenes/logo-efidata.png",
+    "image": "https://www.efidata.com.ar/imagenes/og-cover.jpg",
+    "description": "Consultora Oracle APEX: ERP y sistemas de gestión con integraciones ORDS e IA.",
+    "areaServed": ["AR"],
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Córdoba",
+      "addressCountry": "AR"
+    },
+    "telephone": "+54 9 351 315-6345",
+    "sameAs": [],
+    "serviceType": "Desarrollo Oracle APEX",
+    "makesOffer": [{
+      "@type": "Offer",
+      "itemOffered": {
+        "@type": "Service",
+        "name": "ERP para PYMEs en Oracle APEX",
+        "description": "Facturación, stock, compras, ventas y reportes KPI en APEX."
+      }
+    },{
+      "@type": "Offer",
+      "itemOffered": {
+        "@type": "Service",
+        "name": "Integraciones ORDS/REST e IA",
+        "description": "APIs, OAuth2, NL→SQL y asistentes in‑app."
+      }
+    }]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "¿Trabajan on‑premise u OCI?",
+        "acceptedAnswer": {"@type":"Answer","text":"Ambos. Desplegamos APEX en OCI (ATP/ADB, ORDS) o sobre tu infraestructura."}
+      },
+      {
+        "@type": "Question",
+        "name": "¿Pueden integrar IA a mi app?",
+        "acceptedAnswer": {"@type":"Answer","text":"Sí: consultas en lenguaje natural, asistentes, visión, workflows y más."}
+      },
+      {
+        "@type": "Question",
+        "name": "¿Migran desde Excel/Forms?",
+        "acceptedAnswer": {"@type":"Answer","text":"Convertimos procesos a APEX con gobierno de datos y seguridad."}
+      },
+      {
+        "@type": "Question",
+        "name": "¿Cómo es el handover?",
+        "acceptedAnswer": {"@type":"Answer","text":"Documentación, capacitación y traspaso ordenado al equipo interno."}
+      }
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {"@type":"ListItem","position":1,"name":"Inicio","item":"https://www.efidata.com.ar/"},
+      {"@type":"ListItem","position":2,"name":"Servicios","item":"https://www.efidata.com.ar/#servicios"},
+      {"@type":"ListItem","position":3,"name":"Soluciones","item":"https://www.efidata.com.ar/#soluciones"},
+      {"@type":"ListItem","position":4,"name":"Proceso","item":"https://www.efidata.com.ar/#proceso"},
+      {"@type":"ListItem","position":5,"name":"Planes","item":"https://www.efidata.com.ar/#precios"},
+      {"@type":"ListItem","position":6,"name":"Contacto","item":"https://www.efidata.com.ar/#contacto"}
+    ]
+  }
+  </script>
 </head>
 <body>
-  <div class="lx-progress" id="lxProgress"></div>
+  <div class="lx-progress" id="lxProgress" aria-hidden="true"></div>
 
   <!-- HEADER -->
-<header class="lx-header" data-ani>
-  <div class="lx-wrap lx-nav">
-    <a href="#home" class="lx-brand">
-      <span class="lx-logo" aria-hidden="true">
-        <img src="Imagenes/LogoEFIDATA.png" alt="">
-      </span>
-      <span class="lx-strong">EFI Data</span>
-    </a>
+  <header class="lx-header" data-ani>
+    <div class="lx-wrap lx-nav">
+      <a href="#home" class="lx-brand" aria-label="Ir a Inicio">
+        <span class="lx-logo" aria-hidden="true">
+          <img src="Imagenes/LogoEFIDATA.png" alt="Logo EFI Data" width="34" height="34" loading="eager" fetchpriority="high">
+        </span>
+        <span class="lx-strong">EFI Data</span>
+      </a>
 
-    <!-- Menú de escritorio (igual que antes) -->
-    <nav class="lx-menu" aria-label="principal">
-      <a href="#servicios">Servicios</a>
-      <a href="#soluciones">Soluciones</a>
-      <a href="#proceso">Proceso</a>
-      <a href="#precios">Planes</a>
-      <a href="#contacto">Contacto</a>
-      <a href="https://wa.me/5493513156345" target="_blank" class="lx-btn lx-btn--ghost lx-hover">Hablemos</a>
-    </nav>
+      <nav class="lx-menu" aria-label="principal">
+        <a href="#servicios">Servicios</a>
+        <a href="#soluciones">Soluciones</a>
+        <a href="#proceso">Proceso</a>
+        <a href="#precios">Planes</a>
+        <a href="#contacto">Contacto</a>
+        <a href="https://wa.me/5493513156345" target="_blank" rel="noopener" class="lx-btn lx-btn--ghost lx-hover">Hablemos</a>
+      </nav>
 
-    <!-- Botón burger (solo mobile) -->
-    <button class="lx-burger" id="lxBurger" aria-label="Abrir menú" aria-expanded="false" aria-controls="lxMenuMobile">
-      <i aria-hidden="true"></i>
-    </button>
-  </div>
-
-  <!-- Panel de menú móvil -->
-  <nav id="lxMenuMobile" class="lx-menu-mobile" aria-label="principal móvil">
-    <div class="lx-menu-mobile__inner">
-      <a href="#servicios">Servicios</a>
-      <a href="#soluciones">Soluciones</a>
-      <a href="#proceso">Proceso</a>
-      <a href="#precios">Planes</a>
-      <a href="#contacto">Contacto</a>
-      <a href="https://wa.me/5493513156345" target="_blank" class="lx-btn lx-hover" style="background:var(--lx-brand);color:#fff">Hablemos por WhatsApp</a>
+      <button class="lx-burger" id="lxBurger" aria-label="Abrir menú" aria-expanded="false" aria-controls="lxMenuMobile">
+        <i aria-hidden="true"></i>
+      </button>
     </div>
-  </nav>
-</header>
 
+    <!-- Panel de menú móvil -->
+    <nav id="lxMenuMobile" class="lx-menu-mobile" aria-label="principal móvil">
+      <div class="lx-menu-mobile__inner">
+        <a href="#servicios">Servicios</a>
+        <a href="#soluciones">Soluciones</a>
+        <a href="#proceso">Proceso</a>
+        <a href="#precios">Planes</a>
+        <a href="#contacto">Contacto</a>
+        <a href="https://wa.me/5493513156345" target="_blank" rel="noopener" class="lx-btn lx-hover" style="background:var(--lx-brand);color:#fff">Hablemos por WhatsApp</a>
+      </div>
+    </nav>
+  </header>
 
   <!-- HERO -->
   <section id="home" class="lx-hero" aria-label="Héroe">
     <div class="lx-hero__halo" aria-hidden="true"><div class="lx-hero__halo-inner" id="lxHalo"></div></div>
     <div class="lx-wrap lx-hero__content lx-grid lx-grid--2">
       <div data-ani>
-        <h1 class="lx-title">Aplicaciones Oracle <span style="color:var(--lx-brand-2)">APEX</span> de alto impacto</h1>
+        <h1 class="lx-title">Consultora Oracle <span style="color:var(--lx-brand-2)">APEX</span> para PYMEs</h1>
         <p class="lx-sub">Construimos y optimizamos soluciones en Oracle APEX: desde MVPs hasta plataformas enterprise con IA, ORDS y Autonomous Database. Rápidas, seguras y listas para escalar.</p>
         <div class="lx-cta" data-ani>
           <a href="#contacto" class="lx-btn lx-btn--primary lx-hover">Solicitar propuesta</a>
           <a href="#servicios" class="lx-btn lx-btn--ghost lx-hover">Ver todo lo que hacemos</a>
         </div>
-        <div class="lx-kpis lx-grid lx-grid--3">
-          <div class="lx-card lx-hover" data-ani>
+        <div class="lx-kpis lx-grid lx-grid--3" role="list" aria-label="Indicadores">
+          <div class="lx-card lx-hover" data-ani role="listitem">
             <div class="lx-kpi-n">+120</div>
             <div class="lx-kpi-l">páginas APEX entregadas</div>
           </div>
-          <div class="lx-card lx-hover" data-ani>
+          <div class="lx-card lx-hover" data-ani role="listitem">
             <div class="lx-kpi-n">99.9%</div>
             <div class="lx-kpi-l">uptime en producción</div>
           </div>
-          <div class="lx-card lx-hover" data-ani>
+          <div class="lx-card lx-hover" data-ani role="listitem">
             <div class="lx-kpi-n">x10</div>
             <div class="lx-kpi-l">aceleración de reporting</div>
           </div>
@@ -425,7 +525,7 @@
   </section>
 
   <!-- FAQ -->
-  <section>
+  <section id="faq">
     <div class="lx-wrap">
       <div style="max-width:720px">
         <h2 class="lx-h2">Preguntas frecuentes</h2>
@@ -461,21 +561,21 @@
       <form class="lx-card" style="margin-top:20px;padding:20px" action="mailto:contacto@tu-dominio.com" method="post" enctype="text/plain">
         <div class="lx-form__row">
           <div>
-            <label class="lx-lead" style="font-size:12px">Nombre</label>
-            <input required name="nombre" class="lx-input" placeholder="Tu nombre" />
+            <label class="lx-lead" style="font-size:12px" for="fNombre">Nombre</label>
+            <input id="fNombre" required name="nombre" class="lx-input" placeholder="Tu nombre" />
           </div>
           <div>
-            <label class="lx-lead" style="font-size:12px">Email</label>
-            <input required name="email" type="email" class="lx-input" placeholder="tu@email.com" />
+            <label class="lx-lead" style="font-size:12px" for="fEmail">Email</label>
+            <input id="fEmail" required name="email" type="email" class="lx-input" placeholder="tu@email.com" />
           </div>
         </div>
         <div class="lx-form" style="margin-top:14px">
-          <label class="lx-lead" style="font-size:12px">Mensaje</label>
-          <textarea required name="mensaje" class="lx-textarea" placeholder="¿Qué querés construir en APEX?"></textarea>
+          <label class="lx-lead" style="font-size:12px" for="fMsg">Mensaje</label>
+          <textarea id="fMsg" required name="mensaje" class="lx-textarea" placeholder="¿Qué querés construir en APEX?"></textarea>
         </div>
         <div style="margin-top:14px;display:flex;gap:12px;align-items:center;flex-wrap:wrap">
           <button class="lx-btn lx-hover" style="background:var(--lx-brand);color:#fff">Enviar</button>
-          <a class="lx-btn lx-hover lx-btn--ghost" href="https://wa.me/5493513156345" target="_blank">WhatsApp</a>
+          <a class="lx-btn lx-hover lx-btn--ghost" href="https://wa.me/5493513156345" target="_blank" rel="noopener">WhatsApp</a>
         </div>
         <p class="lx-lead" style="font-size:12px">Al enviar aceptás nuestra política de privacidad.</p>
       </form>
@@ -485,7 +585,7 @@
   <!-- FOOTER -->
   <footer class="lx-footer">
     <div class="lx-wrap" style="display:flex;gap:10px;align-items:center;justify-content:space-between;flex-wrap:wrap">
-      <p>© <span id="lxYear"></span> EFI Data— Córdoba, AR</p>
+      <p>© <span id="lxYear"></span> EFI Data — Córdoba, AR</p>
       <div style="display:flex;gap:14px">
         <a href="#servicios">Servicios</a>
         <a href="#precios">Planes</a>
@@ -524,30 +624,29 @@
     // Parallax sutil del halo
     const halo=document.getElementById('lxHalo');
     if(halo){ (lenis? lenis: {on:(ev,cb)=>document.addEventListener('scroll',()=>cb({scroll:window.scrollY}))}).on('scroll',({scroll})=>{ halo.style.transform=`translate(-50%, ${-140 + (scroll*-0.04)}px)`; }); }
-  // ====== Toggle menú móvil ======
-const burger = document.getElementById('lxBurger');
-const menuMob = document.getElementById('lxMenuMobile');
-if(burger && menuMob){
-  const closeMenu = ()=>{ menuMob.classList.remove('is-open'); burger.setAttribute('aria-expanded','false'); };
-  const openMenu = ()=>{ menuMob.classList.add('is-open'); burger.setAttribute('aria-expanded','true'); };
 
-  burger.addEventListener('click', ()=>{
-    menuMob.classList.contains('is-open') ? closeMenu() : openMenu();
-  });
+    // ====== Toggle menú móvil ======
+    const burger = document.getElementById('lxBurger');
+    const menuMob = document.getElementById('lxMenuMobile');
+    if(burger && menuMob){
+      const closeMenu = ()=>{ menuMob.classList.remove('is-open'); burger.setAttribute('aria-expanded','false'); };
+      const openMenu = ()=>{ menuMob.classList.add('is-open'); burger.setAttribute('aria-expanded','true'); };
 
-  // Cerrar al navegar
-  menuMob.querySelectorAll('a[href^="#"]').forEach(a=>{
-    a.addEventListener('click', ()=> closeMenu());
-  });
+      burger.addEventListener('click', ()=>{
+        menuMob.classList.contains('is-open') ? closeMenu() : openMenu();
+      });
 
-  // Cerrar al hacer scroll fuerte
-  document.addEventListener('scroll', ()=>{ if(menuMob.classList.contains('is-open')) closeMenu(); }, {passive:true});
+      // Cerrar al navegar
+      menuMob.querySelectorAll('a[href^="#"]').forEach(a=>{
+        a.addEventListener('click', ()=> closeMenu());
+      });
 
-  // Accesibilidad: cerrar con ESC
-  document.addEventListener('keydown', (e)=>{ if(e.key==='Escape') closeMenu(); });
-}
+      // Cerrar al hacer scroll fuerte
+      document.addEventListener('scroll', ()=>{ if(menuMob.classList.contains('is-open')) closeMenu(); }, {passive:true});
 
-  
+      // Accesibilidad: cerrar con ESC
+      document.addEventListener('keydown', (e)=>{ if(e.key==='Escape') closeMenu(); });
+    }
   </script>
 </body>
 </html>
